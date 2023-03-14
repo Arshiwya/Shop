@@ -1,0 +1,114 @@
+@font-face {
+    font-family: "casablanca";
+    src: url("../fonts/Casablanca.Font.ttf") format("truetype");
+}
+
+
+.head-btn {
+    background: #f26522;
+    color: wheat !important;
+    text-align: center;
+    padding: 5px 8px;
+    border-radius: 4px;
+}
+
+.head-btn:hover {
+    color: black !important;
+}
+
+
+#body {
+    font-family: casablanca;
+    direction: rtl;
+    background-color: #3c3f41;
+
+}
+
+#test a {
+    color: gold;
+    padding: 10px;
+    font-size: 20px;
+
+}
+
+#test a:hover {
+    color: black;
+    background-color: #ff9f00;
+    border-radius: 10px;
+}
+
+
+#test2 a {
+    color: black;
+
+}
+
+#mySidenav a {
+    color: gold;
+    text-align: right;
+
+}
+
+#mySidenav a:hover {
+    color: wheat;
+    background: #0d95e8;
+    border-radius: 10px;
+
+}
+
+#drp-btn {
+    background-color: #f26522 !important;
+    color: white;
+}
+
+#drp-btn:hover {
+    color: black !important;
+}
+
+
+#drop-but a {
+
+    color: black;
+
+}
+
+#drop-but a:hover {
+
+    color: white;
+    background: #0d95e8;
+    border-radius: 10px;
+
+}
+
+#srch-btn {
+    border-radius: 15px 0px 0px 15px;
+    padding: 0px 15px;
+    z-index: auto;
+}
+
+#srch-btn:hover {
+    color: black !important;
+}
+
+#srch-box {
+    border-radius: 0px 15px 15px 0px;
+}
+
+#cls-btn {
+    color: red !important;
+    padding: 0px 8px 0px 0px !important;
+    width: auto;
+    color: red;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    font-size: 36px;
+
+
+}
+
+#cls-btn:hover {
+
+    background: none !important;;
+}
+
