@@ -589,6 +589,7 @@ a:hover {
     padding: 20px;
     box-shadow: 0px 0 10px 1px goldenrod;
     margin-bottom: 20px;
+    border-radius: 15px;
 }
 
 .shirt_text {
@@ -624,6 +625,7 @@ a:hover {
     text-align: center;
     width: 100%;
 
+
 }
 
 .buy_bt a {
@@ -635,6 +637,7 @@ a:hover {
     border-radius: 5px 10px 5px 10px;
     font-weight: bold;
     padding: 10px;
+
 }
 
 .buy_bt a:hover {
@@ -916,7 +919,7 @@ input.mail_bt::placeholder {
 .location_main {
     width: 100%;
     margin: 0 auto;
-    padding-top: 30px;
+    padding-bottom: 10px;
     text-align: center;
 }
 
@@ -924,7 +927,7 @@ input.mail_bt::placeholder {
     float: left;
     font-size: 16px;
     color: #ffffff;
-    padding: 30px 30px 30px 30px;
+
 }
 
 .location_main a {

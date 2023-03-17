@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}محصول{% endblock %}
+
+{% block main %}
+
+
+    <div class="product-page" >
+
+        <img class="si-pdct-img" src="{{product.image.url}}" alt="product">
+
+    </div>
+
+
+<div class="product-page">
+
+    <p>نام محصول  :  <span class="blk" >{{product.name}}</span> </p>
+
+    {% if product.discount_amount == 0 %}
+    <p>قیمت محصول : <span class="blk" >  {{product.price}} تومان</span>  </p>
+    {% else %}
+    <p>قیمت محصول با تخفیف {{product.discount_amount}} % : <span class="blk" >  {{product.last_price}} تومان</span>  </p>
+    {% endif %}
+
+
+
+    {% if product.description %}
+    <p>   توضیحات :  <span class="blk"> {{product.description}} </span></p>
+    {% endif %}
+
+</div>
+
+
+
+
+{% endblock %}

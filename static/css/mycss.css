@@ -112,3 +112,73 @@
     background: none !important;;
 }
 
+
+.pad_bott {
+    margin-bottom: 15px !important;
+    margin-top: 15px;
+
+}
+
+#discounted {
+    text-decoration: line-through;
+
+}
+
+#discounte_span {
+
+    background-color: black !important;
+    width: 25%;
+    padding: 10px;
+    color: white;
+    border-radius: 20px 10px 20px 10px;
+
+}
+
+#prdt-img {
+    border-radius: 25px;
+
+}
+
+
+.product-page {
+
+    width: 50%;
+    overflow: hidden;
+    float: left;
+
+}
+
+.product-page p {
+    color: #f26522;
+    text-align: start;
+    font-size: large;
+    margin-top: 80px;
+    background-color: white;
+    margin-right: 80px;
+    padding: 20px;
+    width: fit-content;
+    border-radius: 15px;
+
+}
+
+
+.si-pdct-img {
+    width: 70%;
+    margin: 10%;
+    border-radius: 20px;
+    background-color: white;
+    padding: 30px;
+}
+
+.blk {
+    color: black;
+}
+
+
+
+#social a{
+    color: white;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}

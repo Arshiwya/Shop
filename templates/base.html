@@ -139,7 +139,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h1 class="banner_taital">خریدتان <br>را همین الان آغاز کنید !</h1>
-                                <div class="buynow_bt"><a href="#">مشاهده محصولات</a></div>
+                                <div class="buynow_bt"><a href="{% url 'products:home' %}">مشاهده محصولات</a></div>
                             </div>
                         </div>
                     </div>
@@ -147,7 +147,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h1 class="banner_taital">خریدتان <br>را همین الان آغاز کنید !</h1>
-                                <div class="buynow_bt"><a href="#">مشاهده محصولات</a></div>
+                                <div class="buynow_bt"><a href="{% url 'products:home' %}">مشاهده محصولات</a></div>
                             </div>
                         </div>
                     </div>
@@ -155,7 +155,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h1 class="banner_taital">خریدتان <br>را همین الان آغاز کنید !</h1>
-                                <div class="buynow_bt"><a href="#">مشاهده محصولات</a></div>
+                                <div class="buynow_bt"><a href="{% url 'products:home' %}">مشاهده محصولات</a></div>
                             </div>
                         </div>
                     </div>
@@ -178,15 +178,11 @@
 {% endblock %}
 
 
-
-
-
-
 <!-- jewellery  section end -->
 <!-- footer section start -->
 <div class="footer_section layout_padding">
     <div class="container">
-        <div class="footer_logo"><a href="index.html"><img src="{% static 'images/footer-logo.png' %}"></a></div>
+        <div class="footer_logo"><a href="index.html"></a></div>
         <div class="input_bt">
             <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
             <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
@@ -200,15 +196,27 @@
                 <li><a href="#">Customer Service</a></li>
             </ul>
         </div>
-        <div class="location_main">Help Line Number : <a href="#">+1 1800 1200 1200</a></div>
+        <div class="location_main">شماره تماس : 09109575120</div>
+        <div class="location_main">ایمیل : arshiyasohrabi81@gmail.com</div>
+        <ul id="social" class="social">
+
+            <li><a target="_blank" href="https://t.me/arshiyaw"><i class="fa fa-telegram"
+                                                                   style="font-size:28px"></i></a></li>
+
+
+            <li><a target="_blank" href="https://www.instagram.com/arshiwya/"><i class="fa fa-instagram" style="font-size:36px"></i></a>
+            </li>
+
+
+        </ul>
+
     </div>
 </div>
 <!-- footer section end -->
 <!-- copyright section start -->
 <div class="copyright_section">
     <div class="container">
-        <p class="copyright_text">© 2020 All Rights Reserved. Design by <a href="https://html.design">Free html
-            Templates</a></p>
+        <p class="copyright_text">© 2020 All Rights Reserved. Design by Arshiya Sohrabi Shad</a></p>
     </div>
 </div>
 <!-- copyright section end -->
