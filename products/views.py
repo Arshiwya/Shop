@@ -1,8 +1,12 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404
+from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from .models import Category, Product
+from django.db.models import Q
 
 
 def home(request):
+    if request.GET.get('search'):
+        return redirect(to=f'/product/search/{request.GET.get("search")}/')
+
     categories = Category.objects.all()
 
     context = {
@@ -35,3 +39,13 @@ def single_product(request, slug):
     }
 
     return render(request, 'products/single-product.html', context=context)
+
+
+def search_product(request, text):
+    print(text)
+    pr = ''
+    products = Product.objects.filter(Q(name__contains=text) | Q(slug__contains=text))
+    for p in products:
+        pr += p.name
+
+    return HttpResponse(pr)
