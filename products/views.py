@@ -5,7 +5,11 @@ from django.db.models import Q
 
 def home(request):
     if request.GET.get('search'):
-        return redirect(to=f'/product/search/{request.GET.get("search")}/')
+        text = request.GET.get('search')
+        search_result = Product.objects.filter(Q(name__contains=text) | Q(slug__contains=text))
+        return search_product(request, search_result ,text)
+
+        # return redirect(to=f'/product/search/{request.GET.get("search")}/')
 
     categories = Category.objects.all()
 
@@ -30,22 +34,28 @@ def home(request):
 
 
 def single_product(request, slug):
+    if request.GET.get('search'):
+        text = request.GET.get('search')
+        search_result = Product.objects.filter(Q(name__contains=text) | Q(slug__contains=text))
+        return search_product(request, search_result ,text)
+
+
     product = get_object_or_404(Product, slug=slug)
-    categories = Category.objects.all()[:4]
+
     context = {
         'product': product,
-        'categories': categories,
+
 
     }
 
     return render(request, 'products/single-product.html', context=context)
 
 
-def search_product(request, text):
-    print(text)
-    pr = ''
-    products = Product.objects.filter(Q(name__contains=text) | Q(slug__contains=text))
-    for p in products:
-        pr += p.name
+def search_product(request, search_result , text):
 
-    return HttpResponse(pr)
+    context = {
+        'search_result':search_result,
+        'text' : text,
+    }
+
+    return render(request , 'products/search-result.html' , context=context)
