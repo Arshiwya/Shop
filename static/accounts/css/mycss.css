@@ -1,0 +1,109 @@
+@font-face {
+    font-family: Badkhat;
+    src: url("../fonts/Badkhat.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: Yekan;
+    src: url('../fonts/Yekan.ttf');
+
+
+}
+@font-face {
+    font-family: leyla;
+    src: url('../fonts/leyla.ttf');
+
+
+}
+@font-face {
+    font-family: Casablanca-Font;
+    src: url('../fonts/Casablanca-Font.ttf');
+}
+
+@font-face {
+    font-family: Mosalas;
+    src: url('../fonts/Mosalas.ttf');
+}
+@font-face {
+    font-family: Ordibehesht;
+    src: url('../fonts/Ordibehesht.ttf');
+}
+
+@font-face {
+    font-family: Lalezar;
+    src: url('../fonts/Lalezar.ttf');
+}
+
+
+Lalezar
+
+
+/*#================================================================================================*/
+#login-error {
+    background: #ffbdbd;
+    display: block;
+    text-align: center;
+    padding: 20px;
+    color: #fd0000;
+}
+
+
+.body-sign {
+    direction: rtl;
+    background: rgb(249, 248, 247);
+    background: linear-gradient(0deg, rgba(249, 248, 247, 1) 0%, rgba(255, 159, 225, 1) 100%);
+    font-family: Lalezar !important;
+}
+
+
+.sign-form {
+    margin: 40px 20px;
+
+    text-align: right;
+
+}
+
+.text-input {
+    width: 50% !important;
+    border: 5px solid #000000 !important;
+    border-radius: 10px 20px !important;
+    padding: 10px !important;
+
+}
+
+.label-sign {
+    margin-right: 10px;
+}
+
+#sign-btn {
+
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    background-color: black;
+    padding: 10px 30px;
+    text-align: center;
+    width: 30%;
+    border-radius: 10px 20px;
+
+}
+
+
+#sign-btn-span{
+    display: block;
+    width: 50%;
+}
+
+#error-msg{
+    text-align: center;
+    display: block;
+    background-color: #000000;
+    color: #fc3838;
+    padding: 20px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0px 0px 20px 20px;
+}

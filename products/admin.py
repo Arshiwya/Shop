@@ -5,18 +5,19 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ['name' , 'price' , 'status' ]
     ordering = ['-price']
 
-    prepopulated_fields = {
-        'slug' : ('name' , )
-    }
+    # prepopulated_fields = {
+    #     'slug' : ('name' , )
+    # }
 
 
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name' , 'slug' , 'parent']
     ordering = ['name']
-    prepopulated_fields = {
-        'slug' : ('name' , )
-    }
+
+    # prepopulated_fields = {
+    #     'slug' : ('name' , )
+    # }
 
 
 

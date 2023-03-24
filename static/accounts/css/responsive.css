@@ -1,0 +1,13 @@
+@media only screen and (max-width: 650px) {
+
+    .text-input {
+        width: 100% !important;
+    }
+
+
+    #sign-btn-span {
+        display: block;
+        width: 100%;
+    }
+
+}

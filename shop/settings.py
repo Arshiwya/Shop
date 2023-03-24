@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-tf$)%p#phq*!%01446h0(&p#lx2s9s(s1r(xx#l-cf_ju=0tr9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['arshiya.iran.liara.run' , '127.0.0.1']
 
 # Application definition
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
+    'widget_tweaks',
 
 ]
 
@@ -78,7 +79,7 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'data/db.sqlite3',
     }
 }
 
@@ -114,19 +115,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-#----------------------------------------------------------------------------------------#
+# ----------------------------------------------------------------------------------------#
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static", ]
 
-
-MEDIA_ROOT = os.path.join(BASE_DIR , 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-
-
-#___------------------------------------------------------------------------------------------#
+# ___------------------------------------------------------------------------------------------#
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

@@ -28,13 +28,19 @@
     <p> توضیحات : <span class="blk"> {{product.description}} </span></p>
     {% endif %}
 
+    <p>
+         <span class="blk">
+    {% for cat in product.categories.all %}
+
+    <a href="{% url 'products:category' cat.slug %}">#{{cat.name}}</a>
+
+    {% endfor %}
+    </span>
+    </p>
+
+    <div class="sabad_btn"><a href="#">افزودن به سبد خرید</a></div>
+
 </div>
-
-
-
-
-
-
 
 
 {% endblock %}

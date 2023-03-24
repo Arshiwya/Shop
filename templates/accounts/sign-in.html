@@ -1,0 +1,125 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/mycss.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'accounts/css/responsive.css' %}">
+
+
+</head>
+<body class="body-sign">
+{% if message %}
+
+<span id="error-msg">{{message}}</span>
+
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+
+    <div>
+
+        <span>
+            <div class="form-group sign-form">
+            <label class="label-sign" for="username">نام کاربری :</label>
+                {{form.username|add_class:"text-input form-control"|attr:"type:text"|attr:"name:username"}}
+
+        </div>
+        </span>
+
+
+        <div class="form-group sign-form">
+            <label class="label-sign" for="formGroupExampleInput2">رمز عبور :</label>
+            {{form.password|add_class:"text-input form-control"|attr:"type:password"|attr:"name:password"}}
+
+        </div>
+
+
+        <div class="form-group sign-form">
+            <label class="label-sign" for="first_name">نام :</label>
+            {{form.first_name|add_class:"text-input form-control"|attr:"type:text"|attr:"name:first_name"}}
+
+        </div>
+
+
+        <div class="form-group sign-form">
+            <label class="label-sign" for="last_name">نام خانوادگی :</label>
+            {{form.last_name|add_class:"text-input form-control"|attr:"type:text"|attr:"name:last_name"}}
+
+        </div>
+
+
+        <div class="form-group sign-form">
+            <label class="label-sign" for="email">ایمیل :</label>
+            {{form.email|add_class:"text-input form-control"|attr:"type:email"|attr:"name:email"}}
+
+        </div>
+
+
+        <div class="form-group sign-form">
+            <label class="label-sign" for="image">عکس :</label>
+            {{form.image|attr:"type:file"|attr:"name:image"|attr:"accept:image/*"}}
+
+        </div>
+
+        <span id="sign-btn-span"><button id="sign-btn" type="submit" class="btn btn-primary">ثبت نام</button></span>
+
+    </div>
+
+
+</form>
+
+
+</body>
+</html>
+
+
+<!-- <div>-->
+<!--        <span class="sign-form">-->
+<!--        <label for="username">نام کاربری :</label>-->
+<!--{{form.username}}-->
+<!--</span>-->
+
+<!--    <span class="sign-form">-->
+<!--    <label for="password">کلمه عبور :</label>-->
+<!--    {{form.password|attr:"type:password" }}-->
+<!--    </span>-->
+
+
+<!--    <span class="sign-form">-->
+<!--    <label for="first_name">نام :</label>-->
+<!--    {{form.first_name}}-->
+<!--    </span>-->
+
+
+<!--    <span class="sign-form">-->
+<!--    <label for="last_name"> نام خانوادگی :</label>-->
+<!--    {{form.last_name}}-->
+<!--    </span>-->
+
+
+<!--    <span class="sign-form">-->
+<!--    <label for="email">ایمیل :</label>-->
+<!--    {{form.email}}-->
+<!--    </span>-->
+
+
+<!--    <span class="sign-form">-->
+<!--    <label for="image">عکس :</label>-->
+<!--    {{form.image}}-->
+<!--    </span>-->
+
+
+<!--    <button type="submit">send</button>-->
+<!--   </div>-->

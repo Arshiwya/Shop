@@ -21,7 +21,8 @@
                                 <div class="box_main">
 
 
-                                    <span id="discounte_span" class="badge bg-primary">{% if p.discount_amount > 0 %}تخفیف ویژه{% endif %}</span>
+                                    <div><span {% if p.discount_amount %}style="display :block;" {% endif %}
+                                               id="discounte_span" class="badge ">{% if p.discount_amount > 0 %}تخفیف ویژه{% endif %}</span></div>
 
 
                                     <h4 class="shirt_text">{{p.name}}</h4>

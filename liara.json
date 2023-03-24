@@ -1,0 +1,22 @@
+{
+
+"app": "arshiya",
+"disks":
+[
+
+{
+"name":"sqlite",
+"mountTo":"data"
+
+} ,
+
+{
+
+	"name":"media",
+"mountTo":"media"
+}
+
+]
+
+
+}

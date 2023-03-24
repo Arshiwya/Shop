@@ -15,15 +15,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- bootstrap css -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'products/css/bootstrap.min.css' %}">
     <!-- style css -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'products/css/style.css' %}">
     <!-- Responsive-->
-    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'products/css/responsive.css' %}">
     <!-- fevicon -->
-    <link rel="icon" href="{% static 'images/fevicon.png' %}" type="image/gif"/>
+    <link rel="icon" href="{% static 'products/images/fevicon.png' %}" type="image/gif"/>
     <!-- Scrollbar Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.min.css' %}">
+    <link rel="stylesheet" href="{% static 'products/css/jquery.mCustomScrollbar.min.css' %}">
     <!-- Tweaks for older IEs-->
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
     <!-- fonts -->
@@ -35,16 +35,19 @@
     <!-- owl stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext"
           rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
-    <link rel="stylesoeet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'products/css/owl.carousel.min.css' %}">
+    <link rel="stylesoeet" href="{% static 'products/css/owl.theme.default.min.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
           media="screen">
-    <link rel="stylesheet" href="../../static/css/mycss.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" id="mycss" href="{% static 'products/css/mycss.css' %}">
+    <link rel="stylesheet" href="{% static 'products/css/myresponsive.css' %}">
 
 
 
 </head>
-<body id="body">
+<body id="body" class="dark-body">
 <!-- banner bg main start -->
 <div class="banner_bg_main">
     <!-- header top section start -->
@@ -79,58 +82,89 @@
     <div class="header_section">
         <div class="container">
             <div class="containt_main">
-                <div id="mySidenav" class="sidenav">
-                    <a id="cls-btn" href="javascript:void(0)" onclick="closeNav()">&times;</a>
-                    <a href="index.html">خانه</a>
-                    <a href="fashion.html">محصولات جدید</a>
-                    <a href="electronic.html">ارتباط با ما</a>
-                    <a href="jewellery.html">درباره ما</a>
-                </div>
-                <span class="toggle_icon" onclick="openNav()"><img src="{% static 'images/toggle-icon.png' %}"></span>
-                <div class="dropdown">
-                    <button id="drp-btn" class="btn  dropdown-toggle" type="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">دسته بندی ها
-                    </button>
-                    <div id="drop-but" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        {% for c in all_categories %}
-                        <a class="dropdown-item" href="#">{{c.name}}</a>
-
-                        {% endfor %}
 
 
-                    </div>
-                </div>
                 <div class="main">
                     <!-- Another variation with a button -->
-                    <div  class="input-group">
+                    <div class="input-group">
                         <form class="input-group" method="GET" action="">
-                        <input id="srch-box" name="search" type="search" class="form-control" placeholder="جستوجوی محصول ...">
-                        <div class="input-group-append">
-                            <button   id="srch-btn" class="btn btn-secondary" type="submit"
-                                    style="background-color: #f26522; border-color:#f26522 ">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </div>
-                            </form>
+                            <input id="srch-box" name="search" type="search" class="form-control"
+                                   placeholder="جستوجوی محصول ...">
+                            <div class="input-group-append">
+                                <button id="srch-btn" class="btn btn-secondary" type="submit"
+                                        style="background-color: #f26522; border-color:#f26522 ">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="header_box">
 
                     <div class="login_menu">
                         <ul>
+                            <li id="page-mode"><a class="head-btn" href="#">
+                                <i class="fa fa-sun-o" aria-hidden="true"></i>
+                                <span id="page-mode-text" class="padding_10">لایت مود</span></a>
+                            </li>
                             <li><a class="head-btn" href="#">
                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 <span class="padding_10">سبد خرید</span></a>
                             </li>
-                            <li><a class="head-btn" href="#">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                <span class="padding_10">حساب کاربری</span></a>
+
+                            <li>
+                                {% if user.is_authenticated%}
+                                <a class="head-btn" href="{% url 'accounts:logout' %}">
+
+
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+
+
+                                    <span class="padding_10">{{user.username}}</span>
+
+
+                                    {% else %}
+
+                                    <a class="head-btn" href="{% url 'accounts:login' %}">
+
+
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+
+
+                                        <span class="padding_10">حساب کاربری</span>
+
+                                        {% endif %}
+
+
+                                    </a>
+                                </a>
                             </li>
+
                         </ul>
+
+
+                    </div>
+
+                </div>
+
+                <div class="dropdown">
+                    <button id="drp-btn" class="btn  dropdown-toggle" type="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">دسته بندی ها
+                    </button>
+                    <div id="drop-but" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {% for c in all_categories %}
+                        <a class="dropdown-item" href="{% url 'products:category' c.slug %}">{{c.name}}</a>
+
+                        {% endfor %}
+
+
                     </div>
                 </div>
+
+
             </div>
         </div>
+
     </div>
     <!-- header section end -->
     <!-- banner section start -->
@@ -190,28 +224,23 @@
             <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
             <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
         </div>
-        <div class="footer_menu">
-            <ul>
-                <li><a href="#">Best Sellers</a></li>
-                <li><a href="#">Gift Ideas</a></li>
-                <li><a href="#">New Releases</a></li>
-                <li><a href="#">Today's Deals</a></li>
-                <li><a href="#">Customer Service</a></li>
-            </ul>
-        </div>
+
         <div class="location_main">شماره تماس : 09109575120</div>
         <div class="location_main">ایمیل : arshiyasohrabi81@gmail.com</div>
-        <ul id="social" class="social">
+        <div class="location_main">
+            <ul id="social" class="social">
 
-            <li><a target="_blank" href="https://t.me/arshiyaw"><i class="fa fa-telegram"
-                                                                   style="font-size:28px"></i></a></li>
-
-
-            <li><a target="_blank" href="https://www.instagram.com/arshiwya/"><i class="fa fa-instagram" style="font-size:36px"></i></a>
-            </li>
+                <li><a target="_blank" href="https://t.me/arshiyaw"><i class="fa fa-telegram"
+                                                                       style="font-size:28px"></i></a></li>
 
 
-        </ul>
+                <li><a target="_blank" href="https://www.instagram.com/arshiwya/"><i class="fa fa-instagram"
+                                                                                     style="font-size:36px"></i></a>
+                </li>
+
+
+            </ul>
+        </div>
 
     </div>
 </div>
@@ -224,14 +253,16 @@
 </div>
 <!-- copyright section end -->
 <!-- Javascript files-->
-<script src="{% static 'js/jquery.min.js' %}"></script>
-<script src="{% static 'js/popper.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
-<script src="{% static 'js/plugin.js' %}"></script>
+<script src="{% static 'products/js/dark-mode.js' %}" ></script>
+<script src="{% static 'products/js/jquery.min.js' %}"></script>
+<script src="{% static 'products/js/dark-mode.js' %}"></script>
+<script src="{% static 'products/js/popper.min.js' %}"></script>
+<script src="{% static 'products/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'products/js/jquery-3.0.0.min.js' %}"></script>
+<script src="{% static 'products/js/plugin.js' %}"></script>
 <!-- sidebar -->
-<script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
-<script src="{% static 'js/custom.js' %}"></script>
+<script src="{% static 'products/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+<script src="{% static 'products/js/custom.js' %}"></script>
 <script>
     function openNav() {
         document.getElementById("mySidenav").style.width = "20%";
@@ -240,7 +271,6 @@
     function closeNav() {
         document.getElementById("mySidenav").style.width = "0";
     }
-
 
 
 </script>

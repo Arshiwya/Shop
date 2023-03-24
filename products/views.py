@@ -6,8 +6,9 @@ from django.db.models import Q
 def home(request):
     if request.GET.get('search'):
         text = request.GET.get('search')
-        search_result = Product.objects.filter(Q(name__contains=text) | Q(slug__contains=text))
-        return search_product(request, search_result ,text)
+        search_result = Product.objects.filter(
+            Q(name__contains=text) | Q(slug__contains=text) | Q(description__contains=text))
+        return search_product(request, search_result, text)
 
         # return redirect(to=f'/product/search/{request.GET.get("search")}/')
 
@@ -36,26 +37,35 @@ def home(request):
 def single_product(request, slug):
     if request.GET.get('search'):
         text = request.GET.get('search')
-        search_result = Product.objects.filter(Q(name__contains=text) | Q(slug__contains=text))
-        return search_product(request, search_result ,text)
-
+        search_result = Product.objects.filter(
+            Q(name__contains=text) | Q(slug__contains=text) | Q(description__contains=text))
+        return search_product(request, search_result, text)
 
     product = get_object_or_404(Product, slug=slug)
 
+
     context = {
         'product': product,
-
 
     }
 
     return render(request, 'products/single-product.html', context=context)
 
 
-def search_product(request, search_result , text):
-
+def search_product(request, search_result, text):
     context = {
-        'search_result':search_result,
-        'text' : text,
+        'search_result': search_result,
+        'text': text,
     }
 
-    return render(request , 'products/search-result.html' , context=context)
+    return render(request, 'products/search-result.html', context=context)
+
+
+def category_products(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+
+    context = {
+        'category': category,
+    }
+
+    return render(request, 'products/category-products.html', context=context)
