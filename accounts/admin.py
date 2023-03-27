@@ -7,6 +7,10 @@ from django.contrib.auth.admin import UserAdmin
 
 
 class CustomUserAdmin(UserAdmin):
+    UserAdmin.fieldsets[0][1]['fields'] += ('image',)
+    UserAdmin.fieldsets[1][1]['fields'] += ('balance',)
+    UserAdmin.fieldsets[3][1]['fields'] += ('special_til',)
+
     list_display = ['username', 'email', 'balance', 'is_superuser']
     ordering = ['-date_joined']
 

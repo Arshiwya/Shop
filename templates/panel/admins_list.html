@@ -1,0 +1,69 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+
+
+{% block title %} ادمین ها{% endblock %}
+
+
+{% block main %}
+
+{% if message %}
+<span class="message-span">{{message}}</span>
+{% endif %}
+<div class="card-block table-border-style">
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr id="table-head" style="background: antiquewhite;">
+
+                <th>نام کاربری</th>
+                <th>نام</th>
+                <th>نام خانوادگی</th>
+                <th>مدیر</th>
+                <th>ویرایش</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for admin in admins %}
+            <tr>
+
+
+                <td>{{admin.username}}</td>
+                <td>{% if admin.first_name %}{{admin.first_name}}{% else %}ثبت نشده{% endif %}</td>
+                <td>{% if admin.last_name %}{{admin.last_name}}{% else %}ثبت نشده{% endif %}</td>
+                <td>{% if admin.is_superuser %}<i class="fa fa-check-square"
+                                                  style="font-size:xx-large ; color: lime"></i>{% else %}<i
+                        class="fa fa-minus-square" style="color:red ; font-size:xx-large;"></i>{% endif %}
+                </td>
+                <td>
+
+                    <a title="ویرایش" class="edit-icon-admin blue" href="{% url 'panel:edit_admin' admin.username %}"><i
+                            class="fas fa-edit"></i></a>
+                    <a title="تغییر گدرواژه" class="edit-icon-admin "
+                       href="{% url 'panel:change_pass_admin' admin.username %}"><i class="fa-solid fa-key"></i></a>
+
+                    <a title="حذف ادمین" class="edit-icon-admin red"
+                       href="{% url 'panel:delete_admin' admin.username %}"><i class='fas fa-trash'></i></a>
+
+
+
+                </td>
+
+
+            </tr>
+            {% endfor %}
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+    <a href="{% url 'panel:add_admin' %}">
+        <button type="button" class="btn btn-success centered">افزودن ادمین</button>
+    </a>
+</div>
+{% endblock %}

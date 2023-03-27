@@ -1,0 +1,30 @@
+@media only screen and (max-width: 1000px) {
+
+    .my-label {
+        width: 20%;
+    }
+
+    .my-form-control {
+
+        font-size: 14px;
+        border-radius: 2px;
+        width: 100%;
+        border: 1px solid #000000;
+        border-radius: 15px;
+
+        padding: 10px;
+
+    }
+
+    #sign-btn-admin {
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    #h1-span {
+        color: white;
+        padding: 200px 0px;
+    }
+
+}

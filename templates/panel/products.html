@@ -1,0 +1,47 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+
+{% block title %} محصولات {% endblock %}
+
+{% block main %}
+<div class="card-block table-border-style">
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr id="table-head" style="background: antiquewhite;">
+
+                <th>نام محصول</th>
+                <th>قیمت</th>
+                <th>تخفیف %</th>
+                <th>وضعیت</th>
+                <th>دسته بندی ها</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for p in products %}
+            <tr>
+
+                <td><a href="#">{{p.name}}</a></td>
+                <td>{{p.last_price}}</td>
+                <td>{{p.discount_amount}}%</td>
+                <td>
+                    {% if p.status == 'p' %}
+                    منتشر شده
+                    {% else %}
+                    پیش نویس
+                    {% endif %}
+
+                </td>
+                <td>{{p.get_categories}}</td>
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

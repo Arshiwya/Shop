@@ -44,10 +44,12 @@
 {% if error %}
 	<span id="error-msg">{{error}}</span>
 {% endif %}
+
+
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form" method="POST">
+				<form  class="login100-form validate-form" method="POST">
 					{% csrf_token %}
 					<span class="login100-form-title p-b-26">
 						خوش آمدید .
@@ -83,6 +85,13 @@
 
 						<a class="txt2" href="{% url 'accounts:signin' %}">
 							ایجاد کنید .
+						</a>
+					</div>
+					<div class="text-center p-t-20">
+
+
+						<a class="txt2" href="{% url 'panel:send_reset_pass_email' %}">
+							فراموشی رمز عبور
 						</a>
 					</div>
 				</form>

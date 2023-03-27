@@ -1,0 +1,141 @@
+@font-face {
+    font-family: "casablanca";
+    src: url("../fonts/Casablanca.Font.ttf") format("truetype");
+}
+
+
+@font-face {
+    font-family: "casablanca";
+    src: url("../fonts/Casablanca.Font.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: Yekan;
+    src: url('../fonts/Yekan.ttf');
+
+
+}
+
+
+@font-face {
+    font-family: Lalezar;
+    src: url('../fonts/Lalezar.ttf');
+}
+
+
+* {
+
+    font-family: Lalezar;
+}
+
+#head-text {
+
+    font-size: 16px;
+    color: red;
+}
+
+.nav-btn {
+    margin: 10px;
+    color: black;
+
+}
+
+#table-head th {
+
+    font-weight: bold;
+    font-size: large;
+
+}
+
+
+.form-card {
+    padding: 30px;
+
+}
+
+.my-form-control {
+
+    font-size: 14px;
+    border-radius: 2px;
+    width: 60%;
+    border: 1px solid #000000;
+    border-radius: 15px;
+
+    padding: 10px;
+
+}
+
+.my-label {
+    width: 11%;
+}
+
+.sign-form-admin {
+
+    margin-bottom: 35px;
+
+}
+
+.my-checkbox {
+    width: 25px;
+    height: 25px;
+}
+
+.message-span {
+    display: block;
+    background: #ff0030;
+    color: black;
+    padding: 20px;
+    text-align: center;
+
+}
+
+.edit-icon-admin {
+    color: blueviolet;
+    /* size: revert; */
+    margin-left: 10px;
+    font-size: large;
+
+}
+
+.blue {
+    color: blue;
+}
+
+.red {
+    color: red;
+}
+
+.centered {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+
+#span {
+    text-align: center;
+    width: fit-content;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#span h1 {
+    color: white;
+    padding: 200px 50px 80px 50px;
+}
+
+#btn-success {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    background-color: #CDDC39;
+    border: 0px;
+
+}
+
+#btn-success a {
+    padding: 10px 20px;
+    font-size: large;
+    color: black;
+}

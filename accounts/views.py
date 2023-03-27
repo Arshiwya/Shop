@@ -10,6 +10,10 @@ from .forms import SigninForm
 
 
 def log_in(request):
+    if 'next' in request.GET:
+        next_page = request.GET['next']
+    else:
+        next_page = ''
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['pass']
@@ -18,7 +22,15 @@ def log_in(request):
         if user is not None:
 
             login(request, user)
-            return redirect(to='products:home')
+            if next_page != '':
+                return redirect(to=next_page)
+
+            else:
+                if user.is_superuser or user.is_staff:
+                    return redirect(to='panel:index')
+                else:
+                    return redirect(to='products:home')
+
 
         else:
             error = 'نام کاربری یا رمز عبور اشتباه است . دوباره تلاش کنید!!!'
@@ -47,6 +59,7 @@ def sign_in(request):
             files = request.FILES
         else:
             files = None
+
         form = SigninForm(request.POST, files=files)
         if form.is_valid():
             if not User.objects.filter(username=username).exists():
@@ -61,14 +74,15 @@ def sign_in(request):
                         email = request.POST['email']
                         if request.FILES:
                             image = request.FILES['image']
+
                         else:
-                            image = None
+                            image = 'profiles/defult_prof.jpg'
 
                         User.objects.create_user(username=username, password=password, email=email,
                                                  first_name=first_name,
                                                  last_name=last_name, image=image)
                         user = User.objects.get(username=username)
-                        login(request , user )
+                        login(request, user)
 
                         return redirect('products:home')
 
@@ -108,3 +122,7 @@ def sign_in(request):
             'form': form
         }
         return render(request, 'accounts/sign-in.html', context=context)
+
+
+def denied(request):
+    return render(request, 'accounts/access-denied.html')
