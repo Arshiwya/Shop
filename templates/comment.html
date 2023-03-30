@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}ارسال نظر{% endblock %}
+{% block main %}
+
+<div class="comment">
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div>
+            <label style="color: white" for="full_name">نام و نام خانوادگی :</label>
+            <span>{{form.full_name|attr:"name:full_name"}}</span>
+        </div>
+
+        <div>
+            <label style="color: white" for="email">ایمیل :</label>
+            <span>{{form.email|attr:"name:email"}}</span>
+        </div>
+
+        <div>
+            <label style="color: white" for="text">متن پیام :</label>
+            <textarea name="text" id="text" cols="50%" rows="10"></textarea>
+        </div>
+
+        <button type="submit">ارسال دیدگاه</button>
+
+
+    </form>
+</div>
+
+
+{% endblock %}

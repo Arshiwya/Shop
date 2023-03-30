@@ -1,0 +1,97 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %} افزودن محصول{% endblock %}
+
+{% block panel-header %}
+{% if type == 'add' %}
+افزودن محصول
+{% else %}
+ویرایش محصول
+{% endif %}
+
+{% endblock %}
+
+
+
+
+{% block main %}
+
+
+{% if message %}
+<span class="message-span">{{message}}</span>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-card">
+
+    <span>
+            <div class="form-group sign-form-admin">
+            <label class="label-sign my-label" for="name">نام محصول :</label>
+                {{form.name|add_class:"text-input my-form-control"|attr:"type:text"|attr:"name:name"}}
+
+        </div>
+        </span>
+
+
+        <div class="form-group sign-form-admin">
+            <label class="label-sign my-label" for="description">توضیحات :</label>
+
+            <textarea name="description" id="" cols="70%" rows="10"></textarea>
+
+
+        </div>
+
+
+        <div class="form-group sign-form-admin">
+            <label class="label-sign my-label" for="slug">اسلاگ :</label>
+            {{form.slug|add_class:"text-input my-form-control"|attr:"type:text"|attr:"name:slug"}}
+
+        </div>
+
+
+        <div class="form-group sign-form-admin">
+            <label class="label-sign my-label" for="price">قیمت :</label>
+            {{form.price|add_class:"wdth text-input my-form-control"|attr:"type:text"|attr:"name:price"}}
+
+        </div>
+
+
+        <div class="form-group sign-form-admin">
+            <label class="label-sign my-label" for="status">وضعیت :</label>
+            {{form.status|add_class:"wdth text-input my-form-control"|attr:"name:status"}}
+
+        </div>
+        <div class="form-group sign-form-admin">
+            <label class="label-sign my-label" for="categories">دسته بندی ها :</label>
+            {{form.categories|add_class:"wdth text-input my-form-control"|attr:"name:categories"}}
+
+        </div>
+
+
+
+        <div class="form-group sign-form-admin">
+            <label class="label-sign my-label" for="discount_amount">مقدار تخفیف % :</label>
+            {{form.discount_amount|add_class:"wdth text-input my-form-control"|attr:"type:text"|attr:"name:discount_amount"}}
+
+        </div>
+
+
+        <div class="form-group sign-form-admin">
+            <label class="label-sign my-label" for="image">عکس :</label>
+            {{form.image|attr:"type:file"|attr:"name:image"|attr:"accept:image/*"}}
+
+        </div>
+
+        <span id="sign-btn-span"><button id="sign-btn-admin" type="submit" class="btn btn-primary">
+            {% if type == 'add' %}ثبت نام{% else %}ذخیره{% endif %}
+
+        </button></span>
+
+    </div>
+
+</form>
+
+
+{% endblock %}

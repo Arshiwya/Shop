@@ -70,23 +70,25 @@
 
 }
 
-#drp-btn {
+.drp-btn {
     background-color: #f26522 !important;
     color: white;
+    direction: ltr;
 }
 
-#drp-btn:hover {
+.drp-btn:hover {
     color: black !important;
 }
 
 
-#drop-but a {
+.drop-but a {
 
     color: black;
+    text-align: right;
 
 }
 
-#drop-but a:hover {
+.drop-but a:hover {
 
     color: white;
     background: #0d95e8;
@@ -262,3 +264,18 @@
     margin-right: 3px;
 }
 
+
+
+.comment{
+    display: inline-block;
+    margin: 50px;
+}
+.comment span{
+    margin-right: 30px;
+    margin-bottom: 30px;
+
+}
+
+.comment label{
+    width: 100%;
+}

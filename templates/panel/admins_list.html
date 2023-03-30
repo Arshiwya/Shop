@@ -4,6 +4,24 @@
 
 {% block title %} ادمین ها{% endblock %}
 
+{% block panel-header %}
+لیست  کاربران   :  {{filter}}
+
+<div>
+     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    انتخاب فیلتر
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="{% url 'panel:admins' 'all' %}">همه کابران</a>
+    <a class="dropdown-item" href="{% url 'panel:admins' 'superusers' %}">مدیران</a>
+    <a class="dropdown-item" href="{% url 'panel:admins' 'admins' %}">ادمین ها</a>
+    <a class="dropdown-item" href="{% url 'panel:admins' 'normals' %}">کاربران عادی</a>
+  </div>
+
+</div>
+{% endblock %}
+
+
 
 {% block main %}
 
@@ -21,33 +39,38 @@
                 <th>نام</th>
                 <th>نام خانوادگی</th>
                 <th>مدیر</th>
+                <th>ادمین</th>
                 <th>ویرایش</th>
 
 
             </tr>
             </thead>
             <tbody>
-            {% for admin in admins %}
-            <tr>
+            {% for u in users %}
+            <tr {% if user == u %}style="background-color : #bcfff8 ;"{% endif %} >
 
 
-                <td>{{admin.username}}</td>
-                <td>{% if admin.first_name %}{{admin.first_name}}{% else %}ثبت نشده{% endif %}</td>
-                <td>{% if admin.last_name %}{{admin.last_name}}{% else %}ثبت نشده{% endif %}</td>
-                <td>{% if admin.is_superuser %}<i class="fa fa-check-square"
-                                                  style="font-size:xx-large ; color: lime"></i>{% else %}<i
+                <td>{{u.username}}</td>
+                <td>{% if u.first_name %}{{u.first_name}}{% else %}ثبت نشده{% endif %}</td>
+                <td>{% if u.last_name %}{{u.last_name}}{% else %}ثبت نشده{% endif %}</td>
+                <td>{% if u.is_superuser %}<i class="fa fa-check-square"
+                                                 style="font-size:xx-large ; color: lime"></i>{% else %}<i
+                        class="fa fa-minus-square" style="color:red ; font-size:xx-large;"></i>{% endif %}
+                </td>
+
+                <td>{% if u.is_staff %}<i class="fa fa-check-square"
+                                                 style="font-size:xx-large ; color: lime"></i>{% else %}<i
                         class="fa fa-minus-square" style="color:red ; font-size:xx-large;"></i>{% endif %}
                 </td>
                 <td>
 
-                    <a title="ویرایش" class="edit-icon-admin blue" href="{% url 'panel:edit_admin' admin.username %}"><i
+                    <a title="ویرایش" class="edit-icon-admin blue" href="{% url 'panel:edit_admin' u.username %}"><i
                             class="fas fa-edit"></i></a>
                     <a title="تغییر گدرواژه" class="edit-icon-admin "
-                       href="{% url 'panel:change_pass_admin' admin.username %}"><i class="fa-solid fa-key"></i></a>
+                       href="{% url 'panel:change_pass_admin' u.username %}"><i class="fa-solid fa-key"></i></a>
 
                     <a title="حذف ادمین" class="edit-icon-admin red"
-                       href="{% url 'panel:delete_admin' admin.username %}"><i class='fas fa-trash'></i></a>
-
+                       href="{% url 'panel:delete_admin' u.username %}"><i class='fas fa-trash'></i></a>
 
 
                 </td>
@@ -62,8 +85,11 @@
         </table>
 
     </div>
-    <a href="{% url 'panel:add_admin' %}">
-        <button type="button" class="btn btn-success centered">افزودن ادمین</button>
-    </a>
-</div>
+
+    <div >
+        <a href="{% url 'panel:add_admin' %}">
+            <button type="button" class="btn btn-success centered">افزودن کاربر جدید</button>
+
+        </a>
+    </div>
 {% endblock %}

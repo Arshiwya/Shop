@@ -5102,7 +5102,11 @@ table tbody .border-bottom-info td {
 
 .main-menu .main-menu-content .more-details {
     display: none;
+    direction: rtl;
+    text-align: right;
 }
+
+
 
 .main-menu .main-menu-content .more-details a {
     padding: 10px 25px;
@@ -5110,6 +5114,9 @@ table tbody .border-bottom-info td {
     color: #000;
     -webkit-transition: all ease-in 0.3s;
     transition: all ease-in 0.3s;
+}
+.main-menu .main-menu-content .more-details a  i{
+    color: white;
 }
 
 .main-menu .main-menu-content .more-details a:hover {

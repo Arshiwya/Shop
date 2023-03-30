@@ -1,6 +1,10 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from .models import Category, Product
 from django.db.models import Q
+from .forms import CommentForm
+from django.core.mail import send_mail
+from django.conf import settings
+from accounts.models import User
 
 
 def home(request):
@@ -20,18 +24,7 @@ def home(request):
 
     return render(request, 'products/index.html', context=context)
 
-    # categories = Category.objects.all()
-    # news_p = Product.objects.published()[:3]
-    # best_sellers = Product.objects.all().order_by('-price')[:3]
-    # discounters = Product.objects.discounters()[:3]
-    # print(discounters)
-    # context = {
-    #
-    #     'categories': categories,
-    #     'products': news_p,
-    #     'best_sellers': best_sellers,
-    #     'discounts':discounters,
-    # }
+
 
 
 def single_product(request, slug):
@@ -42,7 +35,6 @@ def single_product(request, slug):
         return search_product(request, search_result, text)
 
     product = get_object_or_404(Product, slug=slug)
-
 
     context = {
         'product': product,
@@ -69,3 +61,47 @@ def category_products(request, slug):
     }
 
     return render(request, 'products/category-products.html', context=context)
+
+
+def send_comment(request):
+    if request.method == 'GET':
+        form = CommentForm()
+        context = {
+            'form': form,
+        }
+
+        return render(request, 'comment.html', context=context)
+
+    else:
+        form = CommentForm(request.POST)
+        if form.is_valid():
+
+            text = form.cleaned_data.get('text')
+            full_name = form.cleaned_data.get('full_name')
+            email = form.cleaned_data.get('email')
+            send_mail(
+
+                subject=f"دیدگاه {full_name}",
+
+                message=f'''
+{text}        
+
+ادرس ایمیل : {email}    
+
+
+
+                                        ''',
+
+                from_email=settings.EMAIL_HOST_USER,
+
+                recipient_list=['arshiyasohrabi81@gmail.com'])
+            form = CommentForm()
+            context = {
+                'form': form,
+            }
+
+            return redirect('products:home')
+
+
+        else:
+            print('hi')

@@ -928,6 +928,8 @@ input.mail_bt::placeholder {
     font-size: 16px;
     color: #ffffff;
     margin-top: 20px;
+    font-family: cursive;
+
 
 }
 
@@ -959,6 +961,7 @@ input.mail_bt::placeholder {
     text-align: center;
     font-size: 16px;
     margin: 20px 0px;
+    font-family: cursive;
 }
 
 .copyright_text a {

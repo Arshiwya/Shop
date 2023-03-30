@@ -1,14 +1,14 @@
 {% load static %}
-
+{% load widget_tweaks %}
 <!DOCTYPE html>
 
 
 <html lang="en">
 <head>
-	<title>ورود</title>
+	<title>تغییر گذرواژه | {{user.username}}</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="{% static 'accounts/images/icons/favicon.ico' %}"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'accounts/vendor/bootstrap/css/bootstrap.min.css' %}">
@@ -18,13 +18,13 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'accounts/fonts/iconic/css/material-design-iconic-font.min.css' %}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'accounts/vendor/animate/animate.css' %}">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'accounts/vendor/css-hamburgers/hamburgers.min.css' %}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'accounts/vendor/animsition/css/animsition.min.css' %}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'accounts/vendor/select2/select2.min.css' %}">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'accounts/vendor/daterangepicker/daterangepicker.css' %}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'accounts/css/util.css' %}">
@@ -41,8 +41,8 @@
 
 </head>
 <body>
-{% if error %}
-	<span id="error-msg">{{error}}</span>
+{% if message %}
+	<span id="error-msg">{{message}}</span>
 {% endif %}
 
 
@@ -52,41 +52,42 @@
 				<form  class="login100-form validate-form" method="POST">
 					{% csrf_token %}
 					<span class="login100-form-title p-b-26">
-						خوش آمدید .
+						گذرواژه جدید برای : <br>{{user.username}}
 					</span>
 
 
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
-						<label for="username">نام کاربری :</label>
-						<input class="input100" type="text" name="username">
+
+                    <div class="wrap-input100 validate-input" data-validate="password">
+
+						<label for="new_password1">رمز قدیمی :</label>
+
+                        {{form.old_password|add_class:"input100"|attr:"type:password"|attr:"name:old_password"}}
 						<span class="focus-input100" ></span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate="Enter password">
+					<div class="wrap-input100 validate-input" data-validate="password">
 
-						<label for="pass">رمز عبور :</label>
-						<input class="input100" type="password" name="pass">
+						<label for="new_password1">رمز عبور جدید :</label>
+
+                        {{form.new_password1|add_class:"input100"|attr:"type:password"|attr:"name:new_password1"}}
+						<span class="focus-input100" ></span>
+					</div>
+                    <div class="wrap-input100 validate-input" data-validate="password">
+
+						<label for="new_password2">تکرار رمز عبور جدید :</label>
+						{{form.new_password2|add_class:"input100"|attr:"type:password"|attr:"name:new_password2"}}
 						<span class="focus-input100" ></span>
 					</div>
 
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn">
-								ورود
+							<button class="login100-form-btn" type="submit">
+								تغییر گذرواژه
 							</button>
 						</div>
 					</div>
 
-					<div class="text-center p-t-115">
-						<span class="txt1">
-							حساب کاربری ندارید ؟
-						</span>
-
-						<a class="txt2" href="{% url 'accounts:signin' %}">
-							ایجاد کنید .
-						</a>
-					</div>
 					<div class="text-center p-t-20">
 
 
@@ -94,14 +95,17 @@
 							فراموشی رمز عبور
 						</a>
 					</div>
+
+
+					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	
+
 
 	<div id="dropDownSelect1"></div>
-	
+
 <!--===============================================================================================-->
 	<script src="{% static 'accounts/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
 <!--===============================================================================================-->

@@ -1,20 +1,24 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import AddAdminForm, EditAdminForm, ChangePasswordForm, ResetPasswordForm, ResetPasswordEmailForm
+from products.forms import ProductForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import (
     check_password, make_password
 )
 from django.core.mail import send_mail
 from django.conf import settings
+from django.utils.text import slugify
+from mytools.randomslug import get_random
 
-from products.models import Product
+from products.models import Product, Category
 from accounts.models import User
 
 from mytools.passvalid import pass_validator
 from mytools.usernamevalid import username_validator
 from mytools.passwordchanger import pass_changer
 from mytools.resetpasstoken import reset_token
+from .mydecorators import check_user
 
 
 # ======================test=========================
@@ -38,24 +42,20 @@ def superuser_checker(user):
 @login_required(login_url='/accounts/?next=/panel', redirect_field_name='next')
 @user_passes_test(staff_checker, login_url='/accounts/denied/')
 def index(request):
-    # send_mail(
-    #
-    #     subject='Add an eye-catching subject',
-    #
-    #     message='سلام علیگم شما وارد شدید',
-    #
-    #     from_email=settings.EMAIL_HOST_USER,
-    #
-    #     recipient_list=['arshiyasohrabi81@gmail.com'])
-
     return render(request, 'panel/index.html')
 
 
 @login_required(login_url='/accounts/?next=/panel', redirect_field_name='next')
 @user_passes_test(staff_checker, login_url='/accounts/denied/')
 def products(request):
+    if 'message' in request.session:
+        message = request.session['message']
+        del request.session['message']
+    else:
+        message = None
     context = {
         'products': Product.objects.all(),
+        'message': message,
     }
 
     return render(request, 'panel/products.html', context=context)
@@ -63,17 +63,31 @@ def products(request):
 
 @login_required(login_url='/accounts/?next=/panel/admins/', redirect_field_name='next')
 @user_passes_test(superuser_checker, login_url='/accounts/denied/')
-def admins_list(request):
+def admins_list(request, filter):
     if 'message' in request.session:
         message = request.session['message']
         del request.session['message']
     else:
         message = None
-    admins = User.objects.filter(is_staff=True)
+
+    if filter == 'all':
+        users = User.objects.all().order_by('-date_joined')
+        filter = 'همه کاربران'
+    elif filter == 'superusers':
+        users = User.objects.filter(is_superuser=True).order_by('date_joined')
+        filter = 'مدیران'
+    elif filter == 'admins':
+        users = User.objects.filter(is_superuser=False, is_staff=True).order_by('date_joined')
+        filter = 'ادمین ها'
+    elif filter == 'normals':
+        users = User.objects.filter(is_superuser=False, is_staff=False).order_by('date_joined')
+        filter = 'کاربران عادی'
 
     context = {
-        'admins': admins,
+
+        'users': users,
         'message': message,
+        'filter': filter
 
     }
 
@@ -138,15 +152,20 @@ def add_admin(request):
                             image = 'profiles/defult_prof.jpg'
                         if 'is_superuser' in request.POST:
                             is_superuser = True
+                            is_staff = True
                         else:
                             is_superuser = False
+                            if 'is_staff' in request.POST:
+                                is_staff = True
+                            else:
+                                is_staff = False
 
                         User.objects.create_user(username=username, password=password, email=email,
                                                  first_name=first_name,
-                                                 last_name=last_name, image=image, is_staff=True,
+                                                 last_name=last_name, image=image, is_staff=is_staff,
                                                  is_superuser=is_superuser)
 
-                        return redirect('panel:admins')
+                        return redirect('/panel/admins/list/all/')
 
 
                     else:
@@ -186,16 +205,16 @@ def delete_admin(request, username):
         user = get_object_or_404(User, username=username)
         user.delete()
 
-        return redirect('panel:admins')
+        return redirect('/panel/admins/list/all/')
 
     else:
         request.session['message'] = 'شما نمی توانید آخرین مدیر را حذف کنید !!!'
 
-        return redirect('panel:admins')
+        return redirect('/panel/admins/list/all/')
 
 
 @login_required(login_url='/accounts/?next=/panel/admins/', redirect_field_name='next')
-@user_passes_test(superuser_checker, login_url='/accounts/denied/')
+@check_user
 def edit_admin(request, username):
     admin = get_object_or_404(User, username=username)
     if request.method == 'GET':
@@ -207,6 +226,7 @@ def edit_admin(request, username):
             'email': admin.email,
             'image': admin.image,
             'is_superuser': admin.is_superuser,
+            'is_staff': admin.is_staff,
 
         })
         context = {
@@ -226,7 +246,7 @@ def edit_admin(request, username):
 
         if form.is_valid():
             if admin.username != request.POST['username']:
-                 # check if username check or no
+                # check if username check or no
                 username_check = username_validator(request.POST['username'])
                 if username_check[0]:  # check the username's length
                     if not User.objects.filter(
@@ -275,23 +295,35 @@ def edit_admin(request, username):
             if files:  # change the image if a file uploaded
                 admin.image = files['image']
 
-                    # =====================================================================
+                # =====================================================================
 
             if 'is_superuser' in request.POST:  # change the superuser status
                 admin.is_superuser = True
-            else:
-                admin.is_superuser = False
+                admin.is_staff = True
 
-                    # =====================================================================
+            else:
+                admin.is_superuser =False
+
+            if 'is_staff' in request.POST:
+                admin.is_staff = True
+            else:
+                if not admin.is_superuser:
+                    admin.is_staff = False
+                else:
+                    admin.is_staff = True
+
+
+
+            # =====================================================================
 
             if 'image-clear' in request.POST:  # change the current image to default
 
                 admin.image = 'profiles/defult_prof.jpg'
 
-                    # =====================================================================
-
+                # =====================================================================
+            print(request.POST)
             admin.save()
-            return redirect('panel:admins')
+            return redirect('/panel/admins/list/all/')
 
 
 
@@ -319,7 +351,7 @@ def edit_admin(request, username):
 
 
 @login_required(login_url='/accounts/?next=/panel/admins/', redirect_field_name='next')
-@user_passes_test(superuser_checker, login_url='/accounts/denied/')
+@check_user
 def change_password_admin(request, username):
     admin = get_object_or_404(User, username=username)
     correct_old_pass = admin.password
@@ -328,6 +360,7 @@ def change_password_admin(request, username):
         form = ChangePasswordForm()
         context = {
             'form': form,
+            'admin': admin,
 
         }
 
@@ -365,14 +398,15 @@ def change_password_admin(request, username):
 
                             recipient_list=[(User.objects.get(username=username)).email])
 
-                        return redirect('panel:admins')
+                        return redirect('/panel/admins/list/all/')
 
                     else:
                         message = pass_check2[1]
                         form = ChangePasswordForm()
                         context = {
                             'form': form,
-                            'message': message
+                            'message': message,
+                            'admin': admin,
 
                         }
 
@@ -384,6 +418,7 @@ def change_password_admin(request, username):
                     context = {
                         'form': form,
                         'message': message,
+                        'admin': admin,
 
                     }
 
@@ -395,6 +430,7 @@ def change_password_admin(request, username):
                 context = {
                     'form': form,
                     'message': message,
+                    'admin': admin,
 
                 }
 
@@ -406,10 +442,88 @@ def change_password_admin(request, username):
             context = {
                 'form': form,
                 'message': message,
+                'admin': admin,
 
             }
 
             return render(request, 'panel/change_password.html', context=context)
+
+
+@login_required(login_url='/accounts/?next=/panel/admins/add', redirect_field_name='next')
+@user_passes_test(staff_checker, login_url='/accounts/denied/')
+def add_product(request):
+    if request.method == 'GET':
+        form = ProductForm()
+        context = {
+            'form': form,
+            'type': 'add',
+        }
+        return render(request, 'panel/add_edit_product.html', context=context)
+
+    elif request.method == 'POST':
+
+        if request.FILES:
+            files = request.FILES
+        else:
+            files = None
+
+        form = ProductForm(data=request.POST, files=files)
+
+        if form.is_valid():
+
+            if not Category.objects.filter(slug=request.POST['slug']).exists() and request.POST['slug'] != '':
+                slug = request.POST['slug']
+
+
+
+
+
+            else:
+
+                slug = slugify(request.POST['name']) + '-' + get_random(5)
+
+            name = request.POST['name']
+            description = request.POST['description']
+            status = request.POST['status']
+            price = request.POST['price']
+            discount_amount = request.POST['discount_amount']
+            if request.FILES:
+                image = request.FILES['image']
+            else:
+                image = 'profiles/defult_prof.jpg'
+
+            newP = Product.objects.create(name=name, description=description, slug=slug, price=price,
+                                          discount_amount=discount_amount, image=image, status=status)
+
+            categories = form.cleaned_data.get('categories')
+
+            for category in categories:
+                newP.categories.add(Category.objects.get(name=category))
+            newP.save()
+
+            request.session['message'] = 'محصول با موفقیت افزوده شد .'
+            return redirect('panel:products')
+
+
+
+        else:
+            message = 'لطفا مقادیر را به درستی وارد کنید .'
+            form = ProductForm()
+            context = {
+                'form': form,
+                'message': message
+            }
+            return render(request, 'panel/add_edit_product.html', context=context)
+
+
+@login_required(login_url='/accounts/?next=/panel/admins/add', redirect_field_name='next')
+@user_passes_test(staff_checker, login_url='/accounts/denied/')
+def delete_product(request, slug):
+    product = get_object_or_404(Product, slug=slug)
+    product.delete()
+
+    request.session['message'] = 'محصول با موفقیت حذف شد . '
+    return redirect('panel:products')
 
 
 def reset_pass_admin(request, token):
@@ -482,7 +596,7 @@ def send_reset_pass_link(request):
 
                     message=f'''
                     برای تغییر گذرواژه خود از لینک زیر استفاده کنید 
-                    http://127.0.0.1:8000/panel/admins/reset_pass/{token}/
+                    https://arshiya.iran.liara.run/panel/admins/reset_pass/{token}/
                     
                     
                     

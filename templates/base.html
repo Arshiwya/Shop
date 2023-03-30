@@ -112,33 +112,7 @@
                                 <span class="padding_10">سبد خرید</span></a>
                             </li>
 
-                            <li>
-                                {% if user.is_authenticated%}
-                                <a class="head-btn" href="{% url 'accounts:logout' %}">
 
-
-                                    <i class="fa fa-user" aria-hidden="true"></i>
-
-
-                                    <span class="padding_10">{{user.username}}</span>
-
-
-                                    {% else %}
-
-                                    <a class="head-btn" href="{% url 'accounts:login' %}">
-
-
-                                        <i class="fa fa-user" aria-hidden="true"></i>
-
-
-                                        <span class="padding_10">حساب کاربری</span>
-
-                                        {% endif %}
-
-
-                                    </a>
-                                </a>
-                            </li>
 
                         </ul>
 
@@ -148,10 +122,39 @@
                 </div>
 
                 <div class="dropdown">
-                    <button id="drp-btn" class="btn  dropdown-toggle" type="button"
+                    <button  class="btn  dropdown-toggle drp-btn" type="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">پنل کاربری
+                    </button>
+                    <div  class="dropdown-menu drop-but" aria-labelledby="dropdownMenuButton">
+                        {% if user.is_superuser %}
+                        <a class="dropdown-item" href="{% url 'panel:index' %}">پنل مدیریت</a>
+                        {% endif %}
+                        {% if not user.is_authenticated %}
+                        <a class="dropdown-item" href="{% url 'accounts:login' %}">ورود</a>
+                        <a class="dropdown-item" href="{% url 'accounts:signin' %}">ایجاد حساب</a>
+                        {% endif %}
+
+                        {% if user.is_authenticated %}
+                        {% if user.is_superuser %}
+                        <a class="dropdown-item" href="{% url 'panel:edit_admin' user.username %}">ویرایش حساب</a>
+                        <a class="dropdown-item" href="{% url 'panel:change_pass_admin' user.username %}">تغییر رمز </a>
+                        {% else %}
+                        <a class="dropdown-item" href="{% url 'accounts:edit_user' user.username %}">ویرایش حساب</a>
+                        <a class="dropdown-item" href="{% url 'accounts:change_pass_user' user.username %}">تغییر رمز </a>
+                        {% endif %}
+
+                        <a class="dropdown-item" href="{% url 'accounts:logout' %}">خروچ </a>
+                        {% endif %}
+
+
+                    </div>
+                </div>
+
+                <div style="margin-right: 10px" class="dropdown">
+                    <button  class="btn  dropdown-toggle drp-btn" type="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">دسته بندی ها
                     </button>
-                    <div id="drop-but" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div  class="dropdown-menu drop-but" aria-labelledby="dropdownMenuButton">
                         {% for c in all_categories %}
                         <a class="dropdown-item" href="{% url 'products:category' c.slug %}">{{c.name}}</a>
 
@@ -176,7 +179,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h1 class="banner_taital">خریدتان <br>را همین الان آغاز کنید !</h1>
-                                <div class="buynow_bt"><a href="{% url 'products:home' %}">مشاهده محصولات</a></div>
+                                <div class="buynow_bt"><a href="/send_comment/">ارسال دیدگاه</a></div>
                             </div>
                         </div>
                     </div>
@@ -184,7 +187,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h1 class="banner_taital">خریدتان <br>را همین الان آغاز کنید !</h1>
-                                <div class="buynow_bt"><a href="{% url 'products:home' %}">مشاهده محصولات</a></div>
+                                 <div class="buynow_bt"><a href="/send_comment/">ارسال دیدگاه</a></div>
                             </div>
                         </div>
                     </div>
@@ -192,16 +195,16 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h1 class="banner_taital">خریدتان <br>را همین الان آغاز کنید !</h1>
-                                <div class="buynow_bt"><a href="{% url 'products:home' %}">مشاهده محصولات</a></div>
+                                 <div class="buynow_bt"><a href="/send_comment/">ارسال دیدگاه</a></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#my_slider" role="button" data-slide="prev">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-                <a class="carousel-control-next" href="#my_slider" role="button" data-slide="next">
-                    <i class="fa fa-angle-right"></i>
+<!--                <a class="carousel-control-prev" href="#my_slider" role="button" data-slide="prev">-->
+<!--                    <i class="fa fa-angle-left"></i>-->
+<!--                </a>-->
+<!--                <a class="carousel-control-next" href="#my_slider" role="button" data-slide="next">-->
+<!--                    <i class="fa fa-angle-right"></i>-->
                 </a>
             </div>
         </div>
@@ -221,8 +224,8 @@
     <div class="container">
         <div class="footer_logo"><a href="index.html"></a></div>
         <div class="input_bt">
-            <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
-            <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
+
+            <span class="subscribe_bt" id="basic-addon2"><a href="#"></a></span>
         </div>
 
         <div class="location_main">شماره تماس : 09109575120</div>

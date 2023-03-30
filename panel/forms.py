@@ -25,6 +25,7 @@ class AddAdminForm(forms.Form):
     email = forms.EmailField(label='email', required=True)
     image = forms.ImageField(label='image', required=False, allow_empty_file=True)
     is_superuser = forms.BooleanField(label='super user', required=False, initial=False)
+    is_staff = forms.BooleanField(label='admin' , required=False , initial=False)
 
 
 class EditAdminForm(forms.Form):
@@ -34,6 +35,7 @@ class EditAdminForm(forms.Form):
     email = forms.EmailField(label='email', required=True)
     image = forms.ImageField(label='image', required=False, allow_empty_file=True)
     is_superuser = forms.BooleanField(label='super user', required=False, initial=False)
+    is_staff = forms.BooleanField(label='admin', required=False, initial=False)
 
 
 class ChangePasswordForm(forms.Form):

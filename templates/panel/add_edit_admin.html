@@ -4,6 +4,14 @@
 
 {% block title %} افزودن ادمین{% endblock %}
 
+{% block panel-header %}
+{% if type == 'add' %}
+افزودن کاربر
+{% else %}
+ویرایش کاربر : {{admin.username}}
+{% endif %}
+
+{% endblock %}
 
 {% block main %}
 
@@ -54,13 +62,21 @@
             {{form.email|add_class:"text-input my-form-control"|attr:"type:email"|attr:"name:email"}}
 
         </div>
-        {% if user != admin %}
+
         <div class="form-group sign-form-admin">
             <label class="label-sign my-label" for="is_superuser">مدیر :</label>
             {{form.is_superuser|add_class:"my-checkbox"|attr:"type:checkbox"|attr:"name:is_superuser"}}
 
         </div>
-        {% endif %}
+
+        <div class="form-group sign-form-admin">
+            <label class="label-sign my-label" for="is_staff">ادمین :</label>
+            {{form.is_staff|add_class:"my-checkbox"|attr:"type:checkbox"|attr:"name:is_staff"}}
+
+        </div>
+
+
+
 
 
         <div class="form-group sign-form-admin">

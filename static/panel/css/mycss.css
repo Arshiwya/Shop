@@ -139,3 +139,33 @@
     font-size: large;
     color: black;
 }
+
+.menu-item {
+    margin-right: 10px;
+    color: white;
+}
+
+
+.wdth {
+    width: 20%;
+}
+
+
+.panel-header {
+
+    text-align: center;
+    background: rgb(60, 100, 185);
+    background: linear-gradient(90deg, rgba(60, 100, 185, 1) 0%, rgba(131, 58, 180, 1) 100%);
+}
+
+.panel-header  span{
+    display: block;
+    padding: 30px;
+    color: aqua;
+    font-size: x-large;
+}
+
+.dropdown-menu a:hover{
+    background-color: #0d95e8;
+
+}

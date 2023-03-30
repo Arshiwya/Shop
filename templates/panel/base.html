@@ -246,9 +246,14 @@
                             <div class="main-menu-content">
                                 <ul>
                                     <li class="more-details">
-                                        <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
-                                        <a href="#!"><i class="ti-settings"></i>Settings</a>
-                                        <a href="{% url 'accounts:logout' %}"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                                         <a href="{% url 'panel:index' %}"><i class="ti-home"></i><span class="menu-item">خانه</span></a>
+                                        <a href="#"><i class="ti-user"></i><span class="menu-item">مشاهده پروفایل</span></a>
+                                        <a href="{% url 'products:home' %}"><i class="ti-shopping-cart"></i><span class="menu-item">مشاهده فروشگاه</span></a>
+                                        <a href="#!"><i class="ti-settings"></i><span
+                                                class="menu-item">تنظیمات</span></a>
+                                        <a href="{% url 'accounts:logout' %}"><i
+                                                class="ti-layout-sidebar-left"></i><span
+                                                class="menu-item">خروج</span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -267,11 +272,11 @@
                             <span style="margin-right: 5px;">بخش مدیران</span></div>
                         <ul class="pcoded-item pcoded-left-item">
                             <li class="active">
-                                <a href="{% url 'panel:admins' %}" class="waves-effect waves-dark">
-                                    <span class="nav-btn">لیست مدیران</span>
+                                <a href="{% url 'panel:admins' 'all' %}" class="waves-effect waves-dark">
+                                    <span class="nav-btn">لیست کاربران</span>
                                 </a>
                                 <a href="{% url 'panel:add_admin' %}" class="waves-effect waves-dark">
-                                    <span class="nav-btn">افزودن مدیر</span>
+                                    <span class="nav-btn">افزودن کاربر</span>
                                 </a>
 
 
@@ -285,7 +290,7 @@
                                 <a href="{% url 'panel:products' %}" class="waves-effect waves-dark ">
                                     <span class="nav-btn">مشاهده محصولات</span>
                                 </a>
-                                <a href="#" class="waves-effect waves-dark">
+                                <a href="{% url 'panel:add_product' %}" class="waves-effect waves-dark">
                                     <span class="nav-btn">افزودن محصول</span>
                                 </a>
                                 <a href="#" class="waves-effect waves-dark">
@@ -301,8 +306,12 @@
                             <span style="margin-right: 5px;"> مدیریت حساب کاربری</span></div>
                         <ul class="pcoded-item pcoded-left-item">
                             <li class="active">
-                                <a href="#" class="waves-effect waves-dark">
+                                <a href="{% url 'panel:edit_admin' user.username %}" class="waves-effect waves-dark">
                                     <span class="nav-btn">ویرایش حساب کاربری</span>
+                                </a>
+                                <a href="{% url 'panel:change_pass_admin' user.username %}"
+                                   class="waves-effect waves-dark">
+                                    <span class="nav-btn">تغییر رمز عبور</span>
                                 </a>
                                 <a href="#" class="waves-effect waves-dark">
                                     <span class="nav-btn">افزودن کاربر</span>
@@ -337,19 +346,23 @@
                     {% block one %}{% endblock %}
                     <!-- Page-header end -->
 
-                        <!-- Main-body start -->
-                        <div style="direction: rtl ; text-align: right" class="main-body">
+                    <!-- Main-body start -->
+                    <div style="direction: rtl ; text-align: right" class="main-body">
 
-                                <!-- Page-body start -->
-                                <div class="page-body">
+                        <!-- Page-body start -->
+                        <div class="page-body">
+                            <div class="panel-header">
+                                <span>{% block panel-header %}{% endblock %}</span>
+                            </div>
 
-                                    {% block main %}{% endblock %}
-                                    <!-- Page-body end -->
-                                </div>
-                                <div id="styleSelector"></div>
 
+                            {% block main %}{% endblock %}
+                            <!-- Page-body end -->
                         </div>
+                        <div id="styleSelector"></div>
+
                     </div>
+                </div>
 
             </div>
         </div>
@@ -420,7 +433,9 @@
 
     <script type="text/javascript" src="{% static 'panel/js/script.js' %} "></script>
     <script type="text/javascript" src="{% static 'panel/js/hidepro.js' %} "></script>
+    <script type="text/javascript" src="{% static 'panel/js/myjs.js' %} "></script>
 
+</div>
 </body>
 
 </html>

@@ -3,7 +3,18 @@
 
 {% block title %} محصولات {% endblock %}
 
+{% block panel-header %}
+لیست محصولات
+{% endblock %}
+
 {% block main %}
+
+
+{% if message %}
+<span style="background-color: #00ff9e" class="message-span">{{message}}</span>
+{% endif %}
+
+
 <div class="card-block table-border-style">
 
     <div class="table-responsive">
@@ -16,6 +27,7 @@
                 <th>تخفیف %</th>
                 <th>وضعیت</th>
                 <th>دسته بندی ها</th>
+                <th>ویرایش</th>
 
 
             </tr>
@@ -36,6 +48,12 @@
 
                 </td>
                 <td>{{p.get_categories}}</td>
+                <td>
+                    <a title="ویرایش" class="edit-icon-admin blue" href="#"><i
+                            class="fas fa-edit"></i></a>
+                    <a title="حذف محصول" class="edit-icon-admin red"
+                       href="{% url 'panel:delete_product' p.slug %}"><i class='fas fa-trash'></i></a>
+                </td>
 
             </tr>
             {% endfor %}

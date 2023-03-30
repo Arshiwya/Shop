@@ -38,12 +38,13 @@
         </div>
         </span>
 
-
+        {% if not type == 'edit' %}
         <div class="form-group sign-form">
             <label class="label-sign" for="formGroupExampleInput2">رمز عبور :</label>
             {{form.password|add_class:"text-input form-control"|attr:"type:password"|attr:"name:password"}}
 
         </div>
+        {% endif %}
 
 
         <div class="form-group sign-form">
@@ -72,8 +73,11 @@
             {{form.image|attr:"type:file"|attr:"name:image"|attr:"accept:image/*"}}
 
         </div>
-
+        {% if not type == 'edit' %}
         <span id="sign-btn-span"><button id="sign-btn" type="submit" class="btn btn-primary">ثبت نام</button></span>
+        {% else %}
+        <span id="sign-btn-span"><button id="sign-btn" type="submit" class="btn btn-primary">ذخیره تغییرات</button></span>
+        {% endif %}
 
     </div>
 
