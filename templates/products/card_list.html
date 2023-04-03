@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}سبد خرید شما{% endblock %}
+
+
+{% block main %}
+<div class="fashion_section">
+    <div id="main_slider" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="container">
+                    {% if products %}
+                    <h1 class="fashion_taital">سبد خرید شما</h1>
+                    <div class="fashion_section_2">
+                        <div class="row">
+                            {% for p in products %}
+
+                            <div class="col-lg-4 col-sm-4 pad_bott">
+                                <div class="box_main">
+
+
+                                    <div><span {% if p.discount_amount %}style="display :block;" {% endif %}
+                                               id="discounte_span" class="badge ">{% if p.discount_amount > 0 %}تخفیف ویژه{% endif %}</span>
+                                    </div>
+
+
+                                    <h4 class="shirt_text">{{p.name}}</h4>
+
+
+                                    {% if p.discount_amount == 0 %}
+
+                                    <p class="price_text">قیمت : <span
+                                            style="color: #262626;"> {{p.price}} تومان </span></p>
+
+
+                                    {% else %}
+                                    <p class="price_text">قیمت قبلی : <span id="discounted"
+                                                                            style="color: #262626;"> {{p.price}} تومان </span>
+                                    </p>
+
+                                    <p class="price_text">قیمت با تخفیف {{p.discount_amount}}% : <span
+                                            style="color: #262626;"> {{p.last_price}} تومان </span></p>
+
+
+                                    {% endif %}
+
+
+                                    <div class="tshirt_img">
+                                        {% if p.image %}
+                                        <img id="prdt-img" src="{{ p.image.url }}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="btn_main">
+                                        <div class="buy_bt"><a  href="{% url 'products:remove_from_card' p.slug %}">حذف از سبد</a></div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% endfor %}
+
+
+                        </div>
+                    </div>
+                    {% else %}
+                    <h1 class="fashion_taital">سبد خرید شما خالی است .</h1>
+                    {% endif %}
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -31,6 +31,7 @@ class Product(models.Model):
     categories = models.ManyToManyField('Category', 'products', blank=True)
     discount_amount = models.IntegerField(default=0)
 
+
     class Meta:
         verbose_name = 'product'
         verbose_name_plural = 'products'

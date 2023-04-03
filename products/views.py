@@ -1,4 +1,6 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+
 from .models import Category, Product
 from django.db.models import Q
 from .forms import CommentForm
@@ -23,8 +25,6 @@ def home(request):
     }
 
     return render(request, 'products/index.html', context=context)
-
-
 
 
 def single_product(request, slug):
@@ -54,6 +54,11 @@ def search_product(request, search_result, text):
 
 
 def category_products(request, slug):
+    if request.GET.get('search'):
+        text = request.GET.get('search')
+        search_result = Product.objects.filter(
+            Q(name__contains=text) | Q(slug__contains=text) | Q(description__contains=text))
+        return search_product(request, search_result, text)
     category = get_object_or_404(Category, slug=slug)
 
     context = {
@@ -64,6 +69,11 @@ def category_products(request, slug):
 
 
 def send_comment(request):
+    if request.GET.get('search'):
+        text = request.GET.get('search')
+        search_result = Product.objects.filter(
+            Q(name__contains=text) | Q(slug__contains=text) | Q(description__contains=text))
+        return search_product(request, search_result, text)
     if request.method == 'GET':
         form = CommentForm()
         context = {
@@ -105,3 +115,32 @@ def send_comment(request):
 
         else:
             print('hi')
+
+@login_required(login_url='/accounts/', redirect_field_name='next')
+def add_to_card(request, slug):
+    user = request.user
+    product = get_object_or_404(Product, slug=slug)
+    user.card.add(product)
+    return single_product(request, slug)
+
+@login_required(login_url='/accounts/', redirect_field_name='next')
+def remove_from_card(request, slug):
+    user = request.user
+    product = get_object_or_404(Product, slug=slug)
+    user.card.remove(product)
+    return card_list(request)
+
+@login_required(login_url='/accounts/?next=/panel/admins/', redirect_field_name='next')
+def card_list(request):
+    if request.GET.get('search'):
+        text = request.GET.get('search')
+        search_result = Product.objects.filter(
+            Q(name__contains=text) | Q(slug__contains=text) | Q(description__contains=text))
+        return search_product(request, search_result, text)
+    user = request.user
+    products = user.card.all()
+    context = {
+        'products': products,
+    }
+
+    return render(request, 'products/card_list.html', context=context)

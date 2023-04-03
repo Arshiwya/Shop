@@ -22,14 +22,15 @@
 
 }
 
-.dark-body{
+.dark-body {
 
     font-family: casablanca;
     direction: rtl;
     background-color: #3c3f41;
 
 }
-.light-body{
+
+.light-body {
 
     font-family: casablanca;
     direction: rtl;
@@ -142,7 +143,7 @@
 
 #discounte_span {
 
-    background-color: red ;
+    background-color: red;
     width: 25%;
     padding: 10px;
     color: white;
@@ -180,7 +181,7 @@
     border-radius: 15px;
 }
 
-.product-page p a{
+.product-page p a {
     color: darkblue;
     margin-right: 5px;
 }
@@ -259,23 +260,33 @@
     border-radius: 15px;
     padding: 20px;
 }
-.hash-tags a{
+
+.hash-tags a {
     color: darkblue;
     margin-right: 3px;
 }
 
 
-
-.comment{
+.comment {
     display: inline-block;
     margin: 50px;
 }
-.comment span{
+
+.comment span {
     margin-right: 30px;
     margin-bottom: 30px;
 
 }
 
-.comment label{
+.comment label {
     width: 100%;
+}
+
+
+#card-number {
+    font-family: cursive;
+    background-color: darkred;
+    padding: 2px 8px;
+    margin-right: 5px;
+    border-radius: 50%;
 }
